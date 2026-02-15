@@ -1,25 +1,30 @@
-function sendMessage() {
+async function sendMessage() {
+  const input = document.getElementById("userInput");
+  const chatBox = document.getElementById("chatBox");
+  const userText = input.value;
+  if (!userText) return;
+  chatBox.innerHTML += `<div class="message">You: ${userText}</div>`;
+  input.value = "";
+  try {
+    const response = await fetch("https://api.openai.com/v1/chat/completions", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer YOUR_OPENAI_API_KEY"
+      },
+      body: JSON.stringify({
+        model: "gpt-4.1-mini",
+        messages: [
+          { role: "system", content: "You are ArthaAI, a finance assistant for Indian founders." },
+          { role: "user", content: userText }
+        ]
+      })
+    });
+    const data = await response.json();
+    const aiReply = data.choices[0].message.content;
 
-    const input = document.getElementById("userInput");
-    const chat = document.getElementById("chat");
-
-    if (!input.value.trim()) return;
-
-    // User message
-    const userMsg = document.createElement("div");
-    userMsg.className = "message user";
-    userMsg.textContent = input.value;
-    chat.appendChild(userMsg);
-
-    // Fake bot reply (for now)
-    setTimeout(() => {
-        const botMsg = document.createElement("div");
-        botMsg.className = "message bot";
-        botMsg.textContent = "This is where ArthaAI will reply 🤖";
-        chat.appendChild(botMsg);
-        chat.scrollTop = chat.scrollHeight;
-    }, 500);
-
-    input.value = "";
-    chat.scrollTop = chat.scrollHeight;
+    chatBox.innerHTML += `<div class="message">ArthaAI: ${aiReply}</div>`;
+  } catch (err) {
+    chatBox.innerHTML += `<div class="message">Error connecting to AI</div>`;
+  }
 }
