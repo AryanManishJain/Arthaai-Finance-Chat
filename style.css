@@ -1,53 +1,67 @@
 body {
-  margin: 0;
-  font-family: Arial, sans-serif;
-  background-color: #2b2b2b; /* Gray background */
-  color: #e5e5e5;
+margin: 0;
+font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+background: #1f1f1f;
+color: #e6e6e6;
 }
-.container {
-  max-width: 900px;
-  margin: auto;
-  padding: 40px 20px;
+.app {
+max-width: 900px;
+margin: auto;
+height: 100vh;
+display: flex;
+flex-direction: column;
 }
-h1 {
-  color: #d1d5db; /* light gray title */
+header {
+padding: 20px;
+border-bottom: 1px solid #333;
 }
-.subtitle {
-  color: #9ca3af;
-  margin-bottom: 20px;
+header h1 {
+margin: 0;
+color: #d1d1d1;
 }
-.chat-box {
-  background: #3a3a3a;
-  border-radius: 12px;
-  padding: 20px;
-  min-height: 300px;
-  margin-bottom: 20px;
+header p {
+color: #9a9a9a;
+}
+main {
+flex: 1;
+padding: 20px;
+overflow-y: auto;
 }
 .message {
-  background: #4a4a4a;
-  padding: 12px;
-  border-radius: 10px;
-  margin-bottom: 10px;
+padding: 14px;
+margin-bottom: 12px;
+border-radius: 12px;
+max-width: 80%;
 }
-.input-area {
-  display: flex;
-  gap: 10px;
+.ai {
+background: #2b2b2b;
 }
-input {
-  flex: 1;
-  padding: 14px;
-  border-radius: 10px;
-  border: none;
-  font-size: 16px;
+.user {
+background: #444;
+margin-left: auto;
 }
-button {
-  background: #6b7280; /* gray button */
-  color: white;
-  border: none;
-  padding: 14px 20px;
-  border-radius: 10px;
-  cursor: pointer;
+footer {
+display: flex;
+padding: 15px;
+border-top: 1px solid #333;
 }
-button:hover {
-  background: #4b5563;
+footer input {
+flex: 1;
+padding: 12px;
+border-radius: 10px;
+border: none;
+background: #2b2b2b;
+color: white;
+}
+footer button {
+margin-left: 10px;
+padding: 12px 18px;
+border: none;
+border-radius: 10px;
+background: #5a5a5a;
+color: white;
+cursor: pointer;
+}
+footer button:hover {
+background: #777;
 }
