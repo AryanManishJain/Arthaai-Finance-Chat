@@ -55,7 +55,6 @@ body {
 .user {
   color: #19c37d;
 }
-
 .bot {
   color: #ececf1;
 }
@@ -101,7 +100,7 @@ button:hover {
   <div class="chat-area">
     <div class="messages" id="messages">
       <div class="message bot">
-         Hi! I’m ArthaAI — your finance assistant. Ask me anything about money, startups, or investing.
+Hi! I’m ArthaAI — your finance assistant. Ask me anything about money, startups, or investing.
       </div>
     </div>
     <div class="input-bar">
@@ -113,7 +112,7 @@ button:hover {
   </div>
 </div>
 <script>
-/* ===== TYPEWRITER FUNCTION ===== */
+/* TYPEWRITER EFFECT */
 function typeText(element, text, speed = 15) {
   element.textContent = "";
   let i = 0;
@@ -126,22 +125,22 @@ function typeText(element, text, speed = 15) {
   }
   type();
 }
-/* ===== SMART REPLIES ===== */
+/* SMART FINANCE REPLIES */
 const financeReplies = [
-"Based on financial best practices, you should focus on building emergency savings first.",
-"For startups, managing burn rate is extremely important.",
-"Diversifying investments reduces long-term risk exposure.",
-"You should track expenses monthly to understand cash flow.",
-"Consider long-term compounding when investing.",
-"Revenue growth matters, but profit margins matter more.",
-"Always separate personal and business finances.",
-"Good founders focus on unit economics early.",
-"Cash flow is more important than revenue in early stage startups.",
-"Invest consistently rather than trying to time the market."
+"Build emergency savings before risky investments.",
+"Track expenses monthly to understand cash flow.",
+"Compounding works best when you start early.",
+"Separate business and personal finances.",
+"Profit margins matter more than revenue alone.",
+"Diversification reduces long-term risk.",
+"Cash flow is king in early startups.",
+"Focus on unit economics early.",
+"Invest consistently instead of timing the market.",
+"Control burn rate carefully in startups."
 ];
+/* SEND MESSAGE */
 function send() {
   const input = document.getElementById("input");
-  const messages = document.getElementById("messages");
   const text = input.value.trim();
   if (!text) return;
   addMessage(text, "user");
@@ -152,6 +151,7 @@ function send() {
     typeText(botDiv, reply);
   }, 600);
 }
+/* ADD MESSAGE TO CHAT */
 function addMessage(text, type) {
   const messages = document.getElementById("messages");
   const div = document.createElement("div");
@@ -161,103 +161,25 @@ function addMessage(text, type) {
   messages.scrollTop = messages.scrollHeight;
   return div;
 }
+/* SMART RESPONSE LOGIC */
 function getSmartReply(userText) {
   userText = userText.toLowerCase();
-  if(userText.includes("startup")) return "For startups, focus on product-market fit before scaling.";
-  if(userText.includes("invest")) return "Long-term SIP investing usually beats short-term trading.";
-  if(userText.includes("save")) return "A good rule is saving at least 20% of income.";
-  if(userText.includes("business")) return "Healthy businesses track CAC, LTV, and burn rate.";
+  if(userText.includes("startup"))
+    return "Focus on product-market fit before scaling.";
+  if(userText.includes("invest"))
+    return "Long-term SIP investing usually beats short-term trading.";
+  if(userText.includes("save"))
+    return "Try saving at least 20% of your income.";
+  if(userText.includes("business"))
+    return "Track CAC, LTV, and burn rate carefully.";
   return financeReplies[Math.floor(Math.random()*financeReplies.length)];
 }
+/* NEW CHAT */
 function newChat() {
   document.getElementById("messages").innerHTML =
   `<div class="message bot">
-   New chat started. Ask me any finance question.
-  </div>`;
-}
-</script>
-</body>
-</html>
-  padding: 14px 20px;
-  border-radius: 10px;
-  border: none;
-  background: #19c37d;
-  color: white;
-  cursor: pointer;
-}
-button:hover {
-  opacity: 0.9;
-}
-</style>
-</head>
-<body>
-<div class="app">
-  <div class="sidebar">
-    <div class="logo">ArthaAI</div>
-    <button class="new-chat" onclick="newChat()">+ New Chat</button>
-  </div>
-  <div class="chat-area">
-    <div class="messages" id="messages">
-      <div class="message bot">
-         Hi! I’m ArthaAI — your finance assistant. Ask me anything about money, startups, or investing.
-      </div>
-    </div>
-    <div class="input-bar">
-      <div class="input-box">
-        <input id="input" placeholder="Ask about finance..." />
-        <button onclick="send()">Send</button>
-      </div>
-    </div>
-  </div>
-</div>
-<script>
-const financeReplies = [
-"Based on financial best practices, you should focus on building emergency savings first.",
-"For Indian startups, managing burn rate is extremely important.",
-"Diversifying investments reduces long-term risk exposure.",
-"You should track expenses monthly to understand cash flow.",
-"Consider long-term compounding when investing.",
-"Revenue growth matters, but profit margins matter more.",
-"Always separate personal and business finances.",
-"Good founders focus on unit economics early.",
-"Cash flow is more important than revenue in early stage startups.",
-"Invest consistently rather than trying to time the market."
-];
-function send() {
-  const input = document.getElementById("input");
-  const messages = document.getElementById("messages");
-  const text = input.value.trim();
-  if (!text) return;
-  addMessage(text, "user");
-  input.value = "";
-  const thinking = addMessage("Thinking...", "bot");
-  setTimeout(() => {
-    thinking.textContent = getSmartReply(text);
-  }, 1000 + Math.random()*1000);
-}
-function addMessage(text, type) {
-  const messages = document.getElementById("messages");
-  const div = document.createElement("div");
-  div.className = "message " + type;
-  div.textContent = text;
-  messages.appendChild(div);
-  messages.scrollTop = messages.scrollHeight;
-  return div;
-}
-function getSmartReply(userText) {
-  userText = userText.toLowerCase();
-  if(userText.includes("startup")) return "For startups, focus on product-market fit before scaling.";
-  if(userText.includes("invest")) return "Long-term SIP investing usually beats short-term trading.";
-  if(userText.includes("save")) return "A good rule is saving at least 20% of income.";
-  if(userText.includes("business")) return "Healthy businesses track CAC, LTV, and burn rate.";
-
-  return financeReplies[Math.floor(Math.random()*financeReplies.length)];
-}
-function newChat() {
-  document.getElementById("messages").innerHTML =
-  `<div class="message bot">
-  👋 New chat started. Ask me any finance question.
-  </div>`;
+New chat started. Ask me any finance question.
+</div>`;
 }
 </script>
 </body>
