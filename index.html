@@ -4,7 +4,6 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>ArthaAI Finance Assistant</title>
-
 <style>
 body {
   margin: 0;
@@ -12,25 +11,21 @@ body {
   background: #343541;
   color: #ececf1;
 }
-
 .app {
   display: flex;
   height: 100vh;
 }
-
 /* Sidebar */
 .sidebar {
   width: 260px;
   background: #202123;
   padding: 20px;
 }
-
 .logo {
   font-size: 22px;
   font-weight: bold;
   margin-bottom: 20px;
 }
-
 .new-chat {
   width: 100%;
   padding: 12px;
@@ -40,26 +35,23 @@ body {
   color: white;
   cursor: pointer;
 }
-
 /* Chat Area */
 .chat-area {
   flex: 1;
   display: flex;
   flex-direction: column;
 }
-
 .messages {
   flex: 1;
   overflow-y: auto;
   padding: 40px;
 }
-
 .message {
   max-width: 650px;
   margin: 20px auto;
   line-height: 1.6;
+  white-space: pre-wrap;
 }
-
 .user {
   color: #19c37d;
 }
@@ -67,20 +59,17 @@ body {
 .bot {
   color: #ececf1;
 }
-
 .input-bar {
   padding: 20px;
   background: #40414f;
   display: flex;
   justify-content: center;
 }
-
 .input-box {
   width: 650px;
   display: flex;
   gap: 10px;
 }
-
 input {
   flex: 1;
   padding: 14px;
@@ -90,8 +79,105 @@ input {
   color: white;
   font-size: 15px;
 }
-
 button {
+  padding: 14px 20px;
+  border-radius: 10px;
+  border: none;
+  background: #3e3f4b;
+  color: white;
+  cursor: pointer;
+}
+button:hover {
+  opacity: 0.9;
+}
+</style>
+</head>
+<body>
+<div class="app">
+  <div class="sidebar">
+    <div class="logo">ArthaAI</div>
+    <button class="new-chat" onclick="newChat()">+ New Chat</button>
+  </div>
+  <div class="chat-area">
+    <div class="messages" id="messages">
+      <div class="message bot">
+         Hi! I’m ArthaAI — your finance assistant. Ask me anything about money, startups, or investing.
+      </div>
+    </div>
+    <div class="input-bar">
+      <div class="input-box">
+        <input id="input" placeholder="Ask about finance..." />
+        <button onclick="send()">Send</button>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+/* ===== TYPEWRITER FUNCTION ===== */
+function typeText(element, text, speed = 15) {
+  element.textContent = "";
+  let i = 0;
+  function type() {
+    if (i < text.length) {
+      element.textContent += text.charAt(i);
+      i++;
+      setTimeout(type, speed);
+    }
+  }
+  type();
+}
+/* ===== SMART REPLIES ===== */
+const financeReplies = [
+"Based on financial best practices, you should focus on building emergency savings first.",
+"For startups, managing burn rate is extremely important.",
+"Diversifying investments reduces long-term risk exposure.",
+"You should track expenses monthly to understand cash flow.",
+"Consider long-term compounding when investing.",
+"Revenue growth matters, but profit margins matter more.",
+"Always separate personal and business finances.",
+"Good founders focus on unit economics early.",
+"Cash flow is more important than revenue in early stage startups.",
+"Invest consistently rather than trying to time the market."
+];
+function send() {
+  const input = document.getElementById("input");
+  const messages = document.getElementById("messages");
+  const text = input.value.trim();
+  if (!text) return;
+  addMessage(text, "user");
+  input.value = "";
+  const botDiv = addMessage("", "bot");
+  setTimeout(() => {
+    const reply = getSmartReply(text);
+    typeText(botDiv, reply);
+  }, 600);
+}
+function addMessage(text, type) {
+  const messages = document.getElementById("messages");
+  const div = document.createElement("div");
+  div.className = "message " + type;
+  div.textContent = text;
+  messages.appendChild(div);
+  messages.scrollTop = messages.scrollHeight;
+  return div;
+}
+function getSmartReply(userText) {
+  userText = userText.toLowerCase();
+  if(userText.includes("startup")) return "For startups, focus on product-market fit before scaling.";
+  if(userText.includes("invest")) return "Long-term SIP investing usually beats short-term trading.";
+  if(userText.includes("save")) return "A good rule is saving at least 20% of income.";
+  if(userText.includes("business")) return "Healthy businesses track CAC, LTV, and burn rate.";
+  return financeReplies[Math.floor(Math.random()*financeReplies.length)];
+}
+function newChat() {
+  document.getElementById("messages").innerHTML =
+  `<div class="message bot">
+   New chat started. Ask me any finance question.
+  </div>`;
+}
+</script>
+</body>
+</html>
   padding: 14px 20px;
   border-radius: 10px;
   border: none;
@@ -99,43 +185,32 @@ button {
   color: white;
   cursor: pointer;
 }
-
 button:hover {
   opacity: 0.9;
 }
 </style>
 </head>
-
 <body>
-
 <div class="app">
-
   <div class="sidebar">
     <div class="logo">ArthaAI</div>
     <button class="new-chat" onclick="newChat()">+ New Chat</button>
   </div>
-
   <div class="chat-area">
-
     <div class="messages" id="messages">
       <div class="message bot">
-        👋 Hi! I’m ArthaAI — your finance assistant. Ask me anything about money, startups, or investing.
+         Hi! I’m ArthaAI — your finance assistant. Ask me anything about money, startups, or investing.
       </div>
     </div>
-
     <div class="input-bar">
       <div class="input-box">
         <input id="input" placeholder="Ask about finance..." />
         <button onclick="send()">Send</button>
       </div>
     </div>
-
   </div>
-
 </div>
-
 <script>
-
 const financeReplies = [
 "Based on financial best practices, you should focus on building emergency savings first.",
 "For Indian startups, managing burn rate is extremely important.",
@@ -148,40 +223,29 @@ const financeReplies = [
 "Cash flow is more important than revenue in early stage startups.",
 "Invest consistently rather than trying to time the market."
 ];
-
 function send() {
   const input = document.getElementById("input");
   const messages = document.getElementById("messages");
   const text = input.value.trim();
-
   if (!text) return;
-
   addMessage(text, "user");
   input.value = "";
-
   const thinking = addMessage("Thinking...", "bot");
-
   setTimeout(() => {
     thinking.textContent = getSmartReply(text);
   }, 1000 + Math.random()*1000);
 }
-
 function addMessage(text, type) {
   const messages = document.getElementById("messages");
-
   const div = document.createElement("div");
   div.className = "message " + type;
   div.textContent = text;
-
   messages.appendChild(div);
   messages.scrollTop = messages.scrollHeight;
-
   return div;
 }
-
 function getSmartReply(userText) {
   userText = userText.toLowerCase();
-
   if(userText.includes("startup")) return "For startups, focus on product-market fit before scaling.";
   if(userText.includes("invest")) return "Long-term SIP investing usually beats short-term trading.";
   if(userText.includes("save")) return "A good rule is saving at least 20% of income.";
@@ -189,15 +253,12 @@ function getSmartReply(userText) {
 
   return financeReplies[Math.floor(Math.random()*financeReplies.length)];
 }
-
 function newChat() {
   document.getElementById("messages").innerHTML =
   `<div class="message bot">
   👋 New chat started. Ask me any finance question.
   </div>`;
 }
-
 </script>
-
 </body>
 </html>
