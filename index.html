@@ -7,40 +7,48 @@
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-     <main class="app-shell">
-      <header class="topbar">
-        <h1>ArthaAI</h1>
-        <p>Finance-first AI copilot for budgeting, investing, startup planning, and risk checks.</p>
-      </header>
-      <section class="chat-panel" aria-label="Finance chat">
-        <div class="messages" id="messages" aria-live="polite">
-          <article class="message bot">
-            Welcome! Share your goal, timeline, and risk appetite. I will stay finance-focused.
-          </article>
-        </div>
+     <div class="layout">
+      <aside class="sidebar" aria-label="Navigation">
+        <div class="brand">ArthaAI</div>
+        <button id="new-chat" class="ghost-btn" type="button">+ New chat</button>
+        <div class="nav-title">Finance modes</div>
+        <select id="mode" name="mode" class="mode-select">
+          <option value="general">General finance</option>
+          <option value="startup">Startup finance</option>
+          <option value="investing">Investing</option>
+          <option value="budgeting">Budgeting</option>
+          <option value="tax">Tax basics</option>
+        </select>
+        <div class="nav-title">Recent chats</div>
+        <div class="chat-item active">Wealth plan</div>
+        <div class="chat-item">Startup runway</div>
+      </aside>
+      <main class="main-panel">
+        <header class="topbar">
+          <h1>Finance Assistant</h1>
+        </header>
 
-        <form id="chat-form" class="composer">
-          <label for="mode">Mode</label>
-          <select id="mode" name="mode">
-            <option value="general">General finance</option>
-            <option value="startup">Startup finance</option>
-            <option value="investing">Investing</option>
-            <option value="budgeting">Budgeting</option>
-            <option value="tax">Tax basics</option>
-          </select>
-
-          <label for="input">Your question</label>
-          <textarea
-            id="input"
-             rows="3"
-            placeholder="Example: I earn ₹1.2L/month and want to invest for 10 years."
-            required
-          ></textarea>
-          <button type="submit">Send</button>
-        </form>
-      </section>
-    </main>
-
+        <section class="messages-wrap">
+          <div class="messages" id="messages" aria-live="polite">
+            <article class="message bot">
+               I’m your finance-first assistant. Tell me your goal, timeline, and risk appetite.
+            </article>
+          </div>
+        </section>
+<form id="chat-form" class="composer" autocomplete="off">
+          <div class="composer-inner">
+            <textarea
+              id="input"
+              rows="1"
+              placeholder="Ask anything about budgeting, investing, startup metrics, taxes, or debt..."
+              required
+            ></textarea>
+            <button type="submit" aria-label="Send message">Send</button>
+          </div>
+          <p class="disclaimer">Educational only — not personalized financial, legal, or tax advice.</p>
+          </form>
+          </main>
+    </div>
     <script src="script.js"></script>
   </body>
 </html>
